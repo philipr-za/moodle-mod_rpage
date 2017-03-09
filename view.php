@@ -100,7 +100,8 @@ $result = $DB->get_records_sql("SELECT rr.id, r.name, r.location, r.timestart, r
     array($USER->id));
 echo "<style>
             td  {
-                border:1px solid black
+                border:1px solid black;
+                padding: 20px;
                 } 
             th {
                 border:1px solid black; 
@@ -109,7 +110,7 @@ echo "<style>
      </style>";
 echo '<table style="width:100%; border:1px solid black">';
 echo "<tr>";
-echo "<th>Session</th><th>Venue</th><th>Start Time</th><th>End Time</th>";
+echo "<th>Session</th><th>Venue</th><th>Start Time</th><th>End Time </th>";
 echo "</tr>";
 foreach($result as $r => $r_val) {
     echo "<tr>";
