@@ -522,3 +522,27 @@ function rpage_check_updates_since(cm_info $cm, $from, $filter = array()) {
     $updates = course_check_module_updates_since($cm, $from, array('content'), $filter);
     return $updates;
 }
+
+function rpage_calculate_outcome_level($outcome_id) {
+    global $USER, $DB;
+    //Get a list of submissions of this question's Outcome for this user
+    $result = $DB->get_records_sql("SELECT vs.id, v.outcome, v.q_level, vs.grade
+                                        FROM {vpl_submissions} as vs
+                                        INNER JOIN {vpl} as v
+                                        ON vs.userid = ? AND vs.vpl = v.id AND v.outcome = ?;",
+        array($USER->id,$outcome_id));
+//        $result = $DB->get_records_sql("SELECT grade
+//                                        FROM {vpl_submissions}
+//                                        WHERE  userid = ?;",
+//                                    array($USER->id));
+
+    $max_level = 0;
+    foreach($result as $x => $x_val) {
+        if($x_val->grade>0.0 && $x_val->q_level > $max_level) {
+            $max_level = $x_val->q_level;
+        }
+
+    }
+
+    return $max_level;
+}

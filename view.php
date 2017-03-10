@@ -89,9 +89,15 @@ $formatoptions->context = $context;
 $content = format_text($content, $rpage->contentformat, $formatoptions);
 echo $OUTPUT->box($content, "generalbox center clearfix");
 
+//Print current levels here
+$outcome1_lvl = rpage_calculate_outcome_level(1);
+$outcome2_lvl = rpage_calculate_outcome_level(2);
+
+echo '<h4>Your current level for Outcome A is ' .$outcome1_lvl . "</h4>";
+echo '<h4>Your current level for Outcome B is ' .$outcome2_lvl . "</h4><p></p>";
+
 // Print list here
-echo '<h4>You are currently booked for the following session</h4>';
-global $USER;
+echo '<h4>You are currently booked for the following sessions:</h4>';
 
 $result = $DB->get_records_sql("SELECT rr.id, r.name, r.location, r.timestart, r.timeend, rr.timecancelled
                                         FROM {reservation_request} as rr
@@ -101,11 +107,12 @@ $result = $DB->get_records_sql("SELECT rr.id, r.name, r.location, r.timestart, r
 echo "<style>
             td  {
                 border:1px solid black;
-                padding: 20px;
+                padding: 10px;
                 } 
             th {
                 border:1px solid black; 
                 background-color: #AAAAAA;
+                text-align: center;
                 }
      </style>";
 echo '<table style="width:100%; border:1px solid black">';
