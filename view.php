@@ -102,7 +102,8 @@ echo '<h4>You are currently booked for the following sessions:</h4>';
 $result = $DB->get_records_sql("SELECT rr.id, r.name, r.location, r.timestart, r.timeend, rr.timecancelled
                                         FROM {reservation_request} as rr
                                         INNER JOIN {reservation} as r
-                                        ON rr.userid = ? AND rr.reservation = r.id;",
+                                        ON rr.userid = ? AND rr.reservation = r.id
+                                        ORDER BY r.timestart;",
     array($USER->id));
 echo "<style>
             td  {
