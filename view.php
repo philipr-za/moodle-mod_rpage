@@ -121,13 +121,18 @@ echo "<tr>";
 echo "<th>Session</th><th>Venue</th><th>Start Time</th>";
 echo "</tr>";
 foreach($result as $r => $r_val) {
-    echo "<tr>";
+
     if($r_val->timecancelled==0) {
 
-        //echo "<td>" . $r_val->name . "</td><td>" . $r_val->location . "</td><td>" . userdate($r_val->timestart) . "</td>";
-        echo "<td>" . date() . "</td><td>" . $r_val->timestart . "</td><td>" . userdate($r_val->timestart) . "</td>";
+        if(time() > $r_val->timestart) {
+            echo "<tr bgcolor='#696969'>";
+        } else {
+            echo "<tr>";
+        }
+        echo "<td>" . $r_val->name . "</td><td>" . $r_val->location . "</td><td>" . userdate($r_val->timestart) . "</td>";
+        echo "</tr>";
     }
-    echo "</tr>";
+
 }
 echo "</table>";
 //$strlastmodified = get_string("lastmodified");
